@@ -50,7 +50,6 @@ ask about : abp generate-proxy -t ng
 
 
 
-
 *****************************************************************
 
 Aug 31
@@ -62,3 +61,27 @@ Aug 31
 
 
 
+****************************************************************
+
+- which is better, one namespace or more than one ?
+- not a single file, multiple files (database of files) and search in it 
+- search_type="mmr",
+        fetch_k=40   understand them 
+
+- add_documents is the ingestion process 
+
+
+**********************************************************************
+
+- answers based on each other :
+
+	Contextual AI / Context-Aware Responses
+	The model doesn’t treat each query as isolated.
+	Instead, it keeps a conversation history (context window) and uses that to shape new answers.
+	Example: If you asked about Pinecone before, the next answer might include Pinecone details without you repeating the word.
+
+- speeding the search
+
+- one namespace because multiple namespaces would be equal to ctrl+f (we have to solve the problem of answers conflict)
+
+- read about everything used in the project
