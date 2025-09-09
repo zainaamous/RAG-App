@@ -21,16 +21,37 @@ def build_pipeline(namespace: str):
     vs = PineconeVectorStore(embedding=embed, index=index)
     prompt = hub.pull("rlm/rag-prompt")
 
+    # def retrieve(state: State):
+    #     hits = vs.similarity_search(
+    #         state["question"], k=6, namespace=namespace,
+    #         search_type="mmr", fetch_k=40
+    #     )
+    #     print("\nTop hits:")
+    #     for i, doc in enumerate(hits, 1):
+    #         print(f" #{i} source={doc.metadata.get('source')} start={doc.metadata.get('chunk_start')}")
+    #         print("  ", doc.page_content[:160].replace("\n"," "), "...")
+    #     return {"context": hits}
+
+
     def retrieve(state: State):
-        hits = vs.similarity_search(
-            state["question"], k=6, namespace=namespace,
+        # Use similarity_search_with_score to get scores
+        hits_with_scores = vs.similarity_search_with_score(
+            state["question"], k=5, namespace=namespace,
             search_type="mmr", fetch_k=40
         )
-        print("\nTop hits:")
-        for i, doc in enumerate(hits, 1):
-            print(f" #{i} source={doc.metadata.get('source')} start={doc.metadata.get('chunk_start')}")
-            print("  ", doc.page_content[:160].replace("\n"," "), "...")
-        return {"context": hits}
+        score_threshold = 0.3
+        filtered_hits = [
+            doc for doc, score in hits_with_scores if score <= score_threshold
+        ]
+        print("\nTop hits (filtered):")
+        for i, (doc, score) in enumerate(hits_with_scores, 1):
+            if score >= score_threshold:
+                print(
+                    f" #{i} source={doc.metadata.get('source')} start={doc.metadata.get('chunk_start')} score={score:.3f}")
+                print("  ", doc.page_content[:160].replace("\n", " "), "...")
+        return {"context": filtered_hits}
+
+
 
     def generate(state: State):
         docs_content = "\n\n".join(doc.page_content for doc in state["context"])
