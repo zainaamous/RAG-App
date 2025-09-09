@@ -2,10 +2,18 @@ import os, glob, hashlib, pathlib
 from urllib.parse import urlparse
 from typing import List
 from langchain_core.documents import Document
-from langchain_community.document_loaders import (
-    PyPDFLoader, UnstructuredFileLoader, Docx2txtLoader, TextLoader,
-    CSVLoader, BSHTMLLoader, WebBaseLoader
-)
+try:
+    # Newer LangChain split: loaders live in langchain_community
+    from langchain_community.document_loaders import (
+        PyPDFLoader, UnstructuredFileLoader, Docx2txtLoader, TextLoader,
+        CSVLoader, BSHTMLLoader
+    )
+except ImportError:  # Fallback for older LangChain versions
+    from langchain.document_loaders import (
+        PyPDFLoader, UnstructuredFileLoader, Docx2txtLoader, TextLoader,
+        CSVLoader, BSHTMLLoader
+    )
+#find files, load them into document objects, and compute stable IDs
 
 SUPPORTED_EXTS = {".pdf", ".docx", ".txt", ".md", ".log", ".csv", ".html", ".htm"}
 
