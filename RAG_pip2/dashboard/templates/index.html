@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced RAG Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">Enhanced RAG System</div>
+            <div class="status-indicator">● Connected</div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <a href="#" class="nav-item active" data-tab="dashboard">Dashboard</a>
+            <a href="#" class="nav-item" data-tab="documents">Documents</a>
+            <a href="#" class="nav-item" data-tab="query">Query</a>
+            <a href="#" class="nav-item" data-tab="ingest">Ingest</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Dashboard Tab -->
+        <div id="dashboardTab" class="tab-content active">
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card" data-stat="indexing_stats.vector_count">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Total Vectors</div>
+                </div>
+                <div class="stat-card" data-stat="indexing_stats.index_dimension">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Vector Dimension</div>
+                </div>
+                <div class="stat-card" data-stat="query_stats.total_vectors">
+                    <div class="stat-value">0</div>
+                    <div class="stat-label">Queryable Vectors</div>
+                </div>
+                <div class="stat-card" data-stat="system_health.api_status">
+                    <div class="stat-value">Healthy</div>
+                    <div class="stat-label">System Status</div>
+                </div>
+            </div>
+
+            <!-- System Health -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">System Health</h3>
+                    <button class="btn btn-secondary btn-refresh">Refresh</button>
+                </div>
+                <div class="card-content">
+                    <div class="system-health">
+                        <div class="alert alert-success">
+                            <span>Loading system health...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div id="documentsTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Indexed Documents</h3>
+                    <div class="flex gap-2">
+                        <button class="btn btn-secondary btn-refresh">Refresh</button>
+                        <button class="btn btn-primary" onclick="dashboard.switchTab('ingest')">Add Document</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="table-container">
+                        <table id="documentsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Document ID</th>
+                                    <th>Source</th>
+                                    <th>Chunks</th>
+                                    <th>Version</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5" class="text-center">Loading documents...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Query Tab -->
+        <div id="queryTab" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Query Knowledge Base</h3>
+                </div>
+                <div class="card-content">
+                    <form id="queryForm">
+                        <div class="form-group">
+                            <label for="queryInput" class="form-label">Question</label>
+                            <textarea 
+                                id="queryInput" 
+                                class="form-textarea" 
+                                placeholder="Ask a question about your documents..."
+                                rows="3"
+                                required
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span id="queryLoading" class="loading hidden"></span>
+                            Query
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Query Results -->
+            <div id="queryResult"></div>
+        </div>
+
+        <!-- Ingest Tab -->
+        <div id="ingestTab" class="tab-content">
+            <!-- Text Ingestion -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Ingest Text Content</h3>
+                </div>
+                <div class="card-content">
+                    <form id="ingestForm">
+                        <div class="form-group">
+                            <label for="contentInput" class="form-label">Document Content</label>
+                            <textarea 
+                                id="contentInput" 
+                                class="form-textarea" 
+                                placeholder="Paste your document content here..."
+                                rows="8"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="sourceInput" class="form-label">Source (Optional)</label>
+                            <input 
+                                type="text" 
+                                id="sourceInput" 
+                                class="form-input" 
+                                placeholder="e.g., manual_input, document_name.pdf"
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span id="ingestLoading" class="loading hidden"></span>
+                            Ingest Document
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Upload File</h3>
+                </div>
+                <div class="card-content">
+                    <div class="form-group">
+                        <label for="fileInput" class="form-label">Select File</label>
+                        <input 
+                            type="file" 
+                            id="fileInput" 
+                            class="form-input" 
+                            accept=".pdf,.docx,.txt,.md,.csv,.html,.htm"
+                        >
+                        <div class="mt-2 text-sm text-gray-600">
+                            Supported formats: PDF, DOCX, TXT, MD, CSV, HTML
+                        </div>
+                    </div>
+                    <div id="uploadLoading" class="loading hidden"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
