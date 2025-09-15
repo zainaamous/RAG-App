@@ -1,0 +1,200 @@
+2025-09-15 10:40:21,354 - rag - INFO - Operation: api_request
+2025-09-15 10:40:21,359 - rag - INFO - Performance: api_request took 0.00s
+2025-09-15 10:40:21,551 - rag - INFO - Operation: api_request
+2025-09-15 10:40:21,600 - rag - INFO - Performance: api_request took 0.05s
+2025-09-15 10:41:59,820 - rag - INFO - Operation: api_request
+2025-09-15 10:41:59,826 - rag - INFO - Operation: api_file_upload
+2025-09-15 10:41:59,832 - rag - INFO - Operation: initializing_indexer
+2025-09-15 10:42:00,673 - rag - INFO - Indexer components initialized successfully
+2025-09-15 10:42:00,675 - rag - INFO - Operation: indexing_document
+2025-09-15 10:42:03,586 - rag - DEBUG - Sentinel upserted
+2025-09-15 10:42:03,589 - rag - INFO - Performance: document_indexing took 2.91s
+2025-09-15 10:42:03,600 - rag - INFO - Performance: api_request took 3.78s
+2025-09-15 11:55:36,243 - rag - INFO - Operation: api_request
+2025-09-15 11:55:36,257 - rag - INFO - Operation: api_query
+2025-09-15 11:55:36,259 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 11:55:37,050 - rag - INFO - Query engine components initialized successfully
+2025-09-15 11:55:37,054 - rag - INFO - Operation: processing_query
+2025-09-15 11:55:43,256 - rag - INFO - Performance: context_retrieval took 6.20s
+2025-09-15 11:55:43,265 - rag - INFO - Performance: api_request took 7.02s
+2025-09-15 11:56:26,533 - rag - INFO - Operation: api_request
+2025-09-15 11:56:26,535 - rag - INFO - Operation: api_query
+2025-09-15 11:56:26,536 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 11:56:26,550 - rag - INFO - Query engine components initialized successfully
+2025-09-15 11:56:26,551 - rag - INFO - Operation: processing_query
+2025-09-15 11:56:28,827 - rag - INFO - Performance: context_retrieval took 2.27s
+2025-09-15 11:56:31,319 - rag - INFO - Performance: query_processing took 4.77s
+2025-09-15 11:56:31,324 - rag - INFO - Performance: api_request took 4.79s
+2025-09-15 11:56:45,867 - rag - INFO - Operation: api_request
+2025-09-15 11:56:45,869 - rag - INFO - Operation: api_query
+2025-09-15 11:56:45,871 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 11:56:45,890 - rag - INFO - Query engine components initialized successfully
+2025-09-15 11:56:45,892 - rag - INFO - Operation: processing_query
+2025-09-15 11:56:48,994 - rag - INFO - Performance: context_retrieval took 3.10s
+2025-09-15 11:56:52,622 - rag - INFO - Performance: query_processing took 6.73s
+2025-09-15 11:56:52,628 - rag - INFO - Performance: api_request took 6.76s
+2025-09-15 11:57:08,761 - rag - INFO - Operation: api_request
+2025-09-15 11:57:08,763 - rag - INFO - Operation: api_query
+2025-09-15 11:57:08,764 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 11:57:08,776 - rag - INFO - Query engine components initialized successfully
+2025-09-15 11:57:08,777 - rag - INFO - Operation: processing_query
+2025-09-15 11:57:10,476 - rag - INFO - Performance: context_retrieval took 1.70s
+2025-09-15 11:57:15,046 - rag - INFO - Performance: query_processing took 6.27s
+2025-09-15 11:57:15,053 - rag - INFO - Performance: api_request took 6.29s
+2025-09-15 12:28:12,616 - rag - INFO - Operation: api_request
+2025-09-15 12:28:12,628 - rag - INFO - Operation: api_query
+2025-09-15 12:28:12,629 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 12:28:14,024 - rag - INFO - Query engine components initialized successfully
+2025-09-15 12:28:14,031 - rag - INFO - Operation: processing_query
+2025-09-15 12:28:16,223 - rag - INFO - Performance: context_retrieval took 2.19s
+2025-09-15 12:28:20,678 - rag - INFO - Performance: query_processing took 6.65s
+2025-09-15 12:28:20,691 - rag - INFO - Performance: api_request took 8.07s
+2025-09-15 12:29:09,178 - rag - INFO - Operation: api_request
+2025-09-15 12:29:09,180 - rag - INFO - Operation: api_query
+2025-09-15 12:29:09,181 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 12:29:09,190 - rag - INFO - Query engine components initialized successfully
+2025-09-15 12:29:09,191 - rag - INFO - Operation: processing_query
+2025-09-15 12:29:10,976 - rag - INFO - Performance: context_retrieval took 1.78s
+2025-09-15 12:29:15,219 - rag - INFO - Performance: query_processing took 6.03s
+2025-09-15 12:29:15,226 - rag - INFO - Performance: api_request took 6.05s
+2025-09-15 12:29:38,576 - rag - INFO - Operation: api_request
+2025-09-15 12:29:38,579 - rag - INFO - Operation: api_query
+2025-09-15 12:29:38,580 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 12:29:38,590 - rag - INFO - Query engine components initialized successfully
+2025-09-15 12:29:38,591 - rag - INFO - Operation: processing_query
+2025-09-15 12:29:42,197 - rag - INFO - Performance: context_retrieval took 3.61s
+2025-09-15 12:29:47,865 - rag - INFO - Performance: query_processing took 9.27s
+2025-09-15 12:29:47,872 - rag - INFO - Performance: api_request took 9.30s
+2025-09-15 12:30:23,044 - rag - INFO - Operation: api_request
+2025-09-15 12:30:23,046 - rag - INFO - Operation: api_query
+2025-09-15 12:30:23,048 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 12:30:23,062 - rag - INFO - Query engine components initialized successfully
+2025-09-15 12:30:23,064 - rag - INFO - Operation: processing_query
+2025-09-15 12:30:25,232 - rag - INFO - Performance: context_retrieval took 2.17s
+2025-09-15 12:30:32,390 - rag - INFO - Performance: query_processing took 9.33s
+2025-09-15 12:30:32,397 - rag - INFO - Performance: api_request took 9.35s
+2025-09-15 12:31:06,039 - rag - INFO - Operation: api_request
+2025-09-15 12:31:06,041 - rag - INFO - Operation: api_query
+2025-09-15 12:31:06,042 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 12:31:06,051 - rag - INFO - Query engine components initialized successfully
+2025-09-15 12:31:06,052 - rag - INFO - Operation: processing_query
+2025-09-15 12:31:08,742 - rag - INFO - Performance: context_retrieval took 2.69s
+2025-09-15 12:31:13,948 - rag - INFO - Performance: query_processing took 7.90s
+2025-09-15 12:31:13,954 - rag - INFO - Performance: api_request took 7.92s
+2025-09-15 12:32:35,293 - rag - INFO - Operation: api_request
+2025-09-15 12:32:35,295 - rag - INFO - Operation: initializing_indexer
+2025-09-15 12:32:35,304 - rag - INFO - Indexer components initialized successfully
+2025-09-15 12:32:36,173 - rag - INFO - Performance: api_request took 0.88s
+2025-09-15 12:35:03,204 - rag - INFO - Operation: api_request
+2025-09-15 12:35:03,207 - rag - INFO - Operation: initializing_indexer
+2025-09-15 12:35:03,229 - rag - INFO - Indexer components initialized successfully
+2025-09-15 12:35:03,231 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 12:35:03,246 - rag - INFO - Query engine components initialized successfully
+2025-09-15 12:35:04,596 - rag - INFO - Performance: api_request took 1.39s
+2025-09-15 14:49:48,503 - rag - INFO - Operation: api_request
+2025-09-15 14:49:48,509 - rag - INFO - Performance: api_request took 0.01s
+2025-09-15 14:49:49,059 - rag - INFO - Operation: api_request
+2025-09-15 14:49:49,191 - rag - INFO - Performance: api_request took 0.13s
+2025-09-15 14:50:26,946 - rag - INFO - Operation: api_request
+2025-09-15 14:50:26,957 - rag - INFO - Operation: api_file_upload
+2025-09-15 14:50:26,965 - rag - INFO - Operation: initializing_indexer
+2025-09-15 14:50:28,059 - rag - INFO - Indexer components initialized successfully
+2025-09-15 14:50:28,064 - rag - INFO - Operation: indexing_document
+2025-09-15 14:50:30,628 - rag - DEBUG - Sentinel upserted
+2025-09-15 14:50:30,630 - rag - INFO - Performance: document_indexing took 2.57s
+2025-09-15 14:50:30,641 - rag - INFO - Performance: api_request took 3.70s
+2025-09-15 14:50:59,029 - rag - INFO - Operation: api_request
+2025-09-15 14:50:59,036 - rag - INFO - Operation: api_file_upload
+2025-09-15 14:50:59,041 - rag - INFO - Operation: initializing_indexer
+2025-09-15 14:50:59,066 - rag - INFO - Indexer components initialized successfully
+2025-09-15 14:50:59,069 - rag - INFO - Operation: indexing_document
+2025-09-15 14:51:01,629 - rag - DEBUG - Sentinel upserted
+2025-09-15 14:51:01,631 - rag - INFO - Performance: document_indexing took 2.56s
+2025-09-15 14:51:01,639 - rag - INFO - Performance: api_request took 2.61s
+2025-09-15 14:52:08,603 - rag - INFO - Operation: api_request
+2025-09-15 14:52:08,617 - rag - INFO - Operation: api_query
+2025-09-15 14:52:08,620 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 14:52:08,659 - rag - INFO - Query engine components initialized successfully
+2025-09-15 14:52:08,665 - rag - INFO - Operation: processing_query
+2025-09-15 14:52:10,124 - rag - INFO - Performance: context_retrieval took 1.46s
+2025-09-15 14:52:18,283 - rag - INFO - Performance: query_processing took 9.62s
+2025-09-15 14:52:18,297 - rag - INFO - Performance: api_request took 9.69s
+2025-09-15 14:55:30,419 - rag - INFO - Initializing dashboard components
+2025-09-15 14:55:30,421 - rag - INFO - Operation: initializing_indexer
+2025-09-15 14:55:32,932 - rag - INFO - Indexer components initialized successfully
+2025-09-15 14:55:32,933 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 14:55:32,948 - rag - INFO - Query engine components initialized successfully
+2025-09-15 14:55:32,949 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 14:57:38,419 - rag - INFO - Initializing dashboard components
+2025-09-15 14:57:38,421 - rag - INFO - Operation: initializing_indexer
+2025-09-15 14:57:39,033 - rag - INFO - Indexer components initialized successfully
+2025-09-15 14:57:39,035 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 14:57:39,051 - rag - INFO - Query engine components initialized successfully
+2025-09-15 14:57:39,052 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 14:57:56,215 - rag - INFO - Initializing dashboard components
+2025-09-15 14:57:56,216 - rag - INFO - Operation: initializing_indexer
+2025-09-15 14:57:59,067 - rag - INFO - Indexer components initialized successfully
+2025-09-15 14:57:59,069 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 14:57:59,086 - rag - INFO - Query engine components initialized successfully
+2025-09-15 14:57:59,089 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 14:59:48,335 - rag - INFO - Initializing dashboard components
+2025-09-15 14:59:48,337 - rag - INFO - Operation: initializing_indexer
+2025-09-15 14:59:49,146 - rag - INFO - Indexer components initialized successfully
+2025-09-15 14:59:49,148 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 14:59:49,177 - rag - INFO - Query engine components initialized successfully
+2025-09-15 14:59:49,178 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:02:45,632 - rag - INFO - Initializing dashboard components
+2025-09-15 15:02:45,633 - rag - INFO - Operation: initializing_indexer
+2025-09-15 15:02:46,506 - rag - INFO - Indexer components initialized successfully
+2025-09-15 15:02:46,508 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 15:02:46,534 - rag - INFO - Query engine components initialized successfully
+2025-09-15 15:02:46,536 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:08:19,413 - rag - INFO - Initializing dashboard components
+2025-09-15 15:08:19,415 - rag - INFO - Operation: initializing_indexer
+2025-09-15 15:08:22,282 - rag - INFO - Indexer components initialized successfully
+2025-09-15 15:08:22,285 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 15:08:22,307 - rag - INFO - Query engine components initialized successfully
+2025-09-15 15:08:22,309 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:10:06,081 - rag - INFO - Initializing dashboard components
+2025-09-15 15:10:06,082 - rag - INFO - Operation: initializing_indexer
+2025-09-15 15:10:08,368 - rag - INFO - Indexer components initialized successfully
+2025-09-15 15:10:08,371 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 15:10:08,395 - rag - INFO - Query engine components initialized successfully
+2025-09-15 15:10:08,398 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:12:48,789 - rag - INFO - Initializing dashboard components
+2025-09-15 15:12:48,790 - rag - INFO - Operation: initializing_indexer
+2025-09-15 15:12:49,536 - rag - INFO - Indexer components initialized successfully
+2025-09-15 15:12:49,539 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 15:12:49,562 - rag - INFO - Query engine components initialized successfully
+2025-09-15 15:12:49,564 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:13:14,592 - rag - INFO - Operation: indexing_document
+2025-09-15 15:13:17,095 - rag - DEBUG - Sentinel upserted
+2025-09-15 15:13:17,097 - rag - INFO - Performance: document_indexing took 2.51s
+2025-09-15 15:15:33,457 - rag - INFO - Operation: indexing_document
+2025-09-15 15:15:35,426 - rag - DEBUG - Sentinel upserted
+2025-09-15 15:15:35,428 - rag - INFO - Performance: document_indexing took 1.97s
+2025-09-15 15:17:01,260 - rag - INFO - Initializing dashboard components
+2025-09-15 15:17:01,263 - rag - INFO - Operation: initializing_indexer
+2025-09-15 15:17:02,079 - rag - INFO - Indexer components initialized successfully
+2025-09-15 15:17:02,082 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 15:17:02,105 - rag - INFO - Query engine components initialized successfully
+2025-09-15 15:17:02,107 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:17:31,505 - rag - INFO - Operation: processing_query
+2025-09-15 15:17:33,734 - rag - INFO - Performance: context_retrieval took 2.23s
+2025-09-15 15:17:49,271 - rag - INFO - Operation: processing_query
+2025-09-15 15:17:49,807 - rag - INFO - Performance: context_retrieval took 0.53s
+2025-09-15 15:17:52,576 - rag - INFO - Performance: query_processing took 3.30s
+2025-09-15 15:18:40,557 - rag - INFO - Operation: indexing_document
+2025-09-15 15:18:43,427 - rag - DEBUG - Sentinel upserted
+2025-09-15 15:18:43,429 - rag - INFO - Performance: document_indexing took 2.87s
+2025-09-15 15:19:16,820 - rag - INFO - Operation: processing_query
+2025-09-15 15:19:18,637 - rag - INFO - Performance: context_retrieval took 1.81s
+2025-09-15 15:21:49,037 - rag - INFO - Initializing dashboard components
+2025-09-15 15:21:49,038 - rag - INFO - Operation: initializing_indexer
+2025-09-15 15:21:49,871 - rag - INFO - Indexer components initialized successfully
+2025-09-15 15:21:49,873 - rag - INFO - Operation: initializing_query_engine
+2025-09-15 15:21:49,902 - rag - INFO - Query engine components initialized successfully
+2025-09-15 15:21:49,904 - rag - INFO - Dashboard components initialized successfully
+2025-09-15 15:22:06,852 - rag - INFO - Operation: processing_query
+2025-09-15 15:22:09,344 - rag - INFO - Performance: context_retrieval took 2.49s
+2025-09-15 15:22:17,140 - rag - INFO - Performance: query_processing took 10.29s

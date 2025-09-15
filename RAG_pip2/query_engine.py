@@ -103,7 +103,7 @@ class EnhancedQueryEngine:
             
             # Initialize LLM
             self.llm = init_chat_model(
-                config.llm.model, 
+                config.llm.model,
                 model_provider=config.llm.provider,
                 temperature=config.llm.temperature,
                 max_tokens=config.llm.max_tokens

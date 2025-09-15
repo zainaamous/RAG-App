@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, WebSocket, WebSocketDisconnect, UploadFile, File
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -107,6 +107,11 @@ async def get_dashboard_stats():
         logger.error(f"Failed to get dashboard stats: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to get stats: {str(e)}")
 
+# Aliases without /api prefix for compatibility with frontend calls
+@app.get("/stats")
+async def get_dashboard_stats_alias():
+    return await get_dashboard_stats()
+
 @app.get("/api/documents")
 async def get_dashboard_documents():
     """Get documents for dashboard display"""
@@ -121,6 +126,10 @@ async def get_dashboard_documents():
     except Exception as e:
         logger.error(f"Failed to get documents: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to get documents: {str(e)}")
+
+@app.get("/documents")
+async def get_dashboard_documents_alias():
+    return await get_dashboard_documents()
 
 @app.post("/api/query")
 async def dashboard_query(request: Request):
@@ -151,6 +160,10 @@ async def dashboard_query(request: Request):
     except Exception as e:
         logger.error(f"Dashboard query failed: {e}")
         raise HTTPException(status_code=500, detail=f"Query failed: {str(e)}")
+
+@app.post("/query")
+async def dashboard_query_alias(request: Request):
+    return await dashboard_query(request)
 
 @app.post("/api/ingest")
 async def dashboard_ingest(request: Request):
@@ -198,20 +211,74 @@ async def dashboard_ingest(request: Request):
         logger.error(f"Dashboard ingestion failed: {e}")
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
 
+@app.post("/ingest")
+async def dashboard_ingest_alias(request: Request):
+    return await dashboard_ingest(request)
+
+# --- WebSocket endpoint (same-origin) ---
+@app.websocket("/ws")
+async def dashboard_websocket(websocket: WebSocket):
+    """Accept dashboard WebSocket connections to avoid 403.
+
+    Note: This is a minimal handler. It supports basic ping/pong.
+    For real-time events from the API server, implement a proxy to the API's /ws.
+    """
+    await websocket.accept()
+    try:
+        while True:
+            data = await websocket.receive_text()
+            try:
+                msg = json.loads(data)
+            except Exception:
+                msg = {"type": "message", "data": data}
+
+            if isinstance(msg, dict) and msg.get("type") == "ping":
+                await websocket.send_text(json.dumps({"type": "pong"}))
+    except WebSocketDisconnect:
+        pass
+
 @app.post("/api/ingest/file")
-async def dashboard_file_upload(request: Request):
-    """Handle dashboard file upload"""
+async def dashboard_file_upload(file: UploadFile = File(...)):
+    """Handle dashboard file upload by indexing the uploaded file"""
     try:
         if not indexer:
             raise HTTPException(status_code=503, detail="Dashboard not initialized")
-        
-        # This would need to be implemented with proper file handling
-        # For now, return a placeholder response
-        raise HTTPException(status_code=501, detail="File upload not implemented in dashboard server")
-        
+
+        import tempfile
+        temp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix=f"_{file.filename}") as temp_file:
+                content = await file.read()
+                temp_file.write(content)
+                temp_path = temp_file.name
+
+            result = indexer._index_single_document(temp_path, reindex=False)
+
+            if not result.success:
+                raise HTTPException(status_code=400, detail=f"File ingestion failed: {result.error}")
+
+            return {
+                "status": "indexed",
+                "doc_id": result.doc_id,
+                "filename": file.filename,
+                "chunks_created": result.chunks_created,
+                "processing_time": result.duration
+            }
+        finally:
+            if temp_path:
+                try:
+                    os.unlink(temp_path)
+                except Exception:
+                    pass
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Dashboard file upload failed: {e}")
         raise HTTPException(status_code=500, detail=f"File upload failed: {str(e)}")
+
+@app.post("/ingest/file")
+async def dashboard_file_upload_alias(file: UploadFile = File(...)):
+    return await dashboard_file_upload(file)
 
 @app.delete("/api/documents/{doc_id}")
 async def dashboard_delete_document(doc_id: str):
@@ -260,11 +327,11 @@ if __name__ == "__main__":
     
     print("🚀 Starting Enhanced RAG Dashboard...")
     print(f"📁 Dashboard directory: {dashboard_dir}")
-    print(f"🌐 Dashboard will be available at: http://localhost:8080")
+    print(f"🌐 Dashboard will be available at: http://localhost:8090")
     
     uvicorn.run(
         app,
         host="0.0.0.0",
-        port=8080,
+        port=8090,
         log_level="info"
     )

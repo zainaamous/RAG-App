@@ -3,6 +3,7 @@ Enhanced Configuration Management System
 Supports multiple environments, validation, and better error handling
 """
 import os
+import sys
 import getpass
 import json
 import yaml
@@ -50,12 +51,11 @@ class ChunkingConfig:
 @dataclass
 class RetrievalConfig:
     """Configuration for retrieval parameters"""
-    max_docs: int = 3
+    max_docs: int = 10
     k_per_doc: int = 6
-    pool_k: int = 80
-    pool_fetch_k: int = 160
-    similarity_threshold: float = 0.7
-
+    pool_k: int = 200
+    pool_fetch_k: int = 300
+    similarity_threshold: float = 0.2
 @dataclass
 class PineconeConfig:
     """Configuration for Pinecone"""
@@ -116,16 +116,23 @@ class ConfigManager:
         self._load_config()
     
     def _env(self, name: str, prompt: str = None, default: str = None, sensitive: bool = False) -> str:
-        """Enhanced environment variable loading with better UX"""
+        """Enhanced environment variable loading with better UX
+
+        Avoids interactive prompts when not running in an interactive TTY or unless explicitly allowed.
+        Set ALLOW_CONFIG_PROMPTS=1 to enable prompts (e.g., during local CLI use).
+        """
         val = os.environ.get(name)
-        
-        if not val and prompt:
+
+        allow_prompts = os.environ.get("ALLOW_CONFIG_PROMPTS", "0") == "1"
+        is_tty = bool(getattr(sys, "stdin", None)) and sys.stdin.isatty()
+
+        if not val and prompt and allow_prompts and is_tty:
             if sensitive:
                 val = getpass.getpass(prompt)
             else:
                 val = input(prompt)
             os.environ[name] = val
-            
+
         return val or default or ""
     
     def _load_config(self):

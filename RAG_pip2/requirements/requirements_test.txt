@@ -1,0 +1,12 @@
+# Testing Dependencies
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.11.0
+pytest-cov>=4.1.0
+httpx>=0.24.0  # For async HTTP testing
+rich>=13.0.0  # For CLI testing
+
+# Additional testing utilities
+factory-boy>=3.3.0  # For test data generation
+freezegun>=1.2.0    # For time mocking
+responses>=0.23.0   # For HTTP mocking
