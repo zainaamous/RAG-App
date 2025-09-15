@@ -20,7 +20,7 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 # Import enhanced modules
-from config import config, config_manager
+from config import config, config_manager, ConfigManager
 from logger import logger, log_operation, log_performance, log_error
 from indexer import EnhancedIndexer, IndexingResult, IndexingStats
 from query_engine import EnhancedQueryEngine, QueryResult, QueryType
@@ -183,7 +183,9 @@ async def health_check(namespace: str = None):
     
     try:
         indexer = EnhancedIndexer(namespace)
-        stats = indexer.get_namespace_stats()
+        stats = await asyncio.get_event_loop().run_in_executor(
+            None, indexer.get_namespace_stats
+        )
         
         system_info = {
             "version": "2.0.0",
@@ -221,7 +223,9 @@ async def ingest_doc(req: IngestRequest, background_tasks: BackgroundTasks):
         
         # Index document
         indexer = EnhancedIndexer(req.namespace)
-        result = indexer._index_single_document(temp_path, reindex=False)
+        result = await asyncio.get_event_loop().run_in_executor(
+            None, indexer._index_single_document, temp_path, False
+        )
         
         if not result.success:
             raise HTTPException(status_code=400, detail=f"Ingestion failed: {result.error}")
@@ -326,7 +330,9 @@ async def _process_single_ingest(doc_req: IngestRequest, indexer: EnhancedIndexe
     
     try:
         temp_path = create_temp_document(doc_req.content, doc_req.doc_id)
-        result = indexer._index_single_document(temp_path, reindex=False)
+        result = await asyncio.get_event_loop().run_in_executor(
+            None, indexer._index_single_document, temp_path, False
+        )
         
         background_tasks.add_task(cleanup_temp_file, temp_path)
         
@@ -349,7 +355,7 @@ async def ingest_file(
     namespace: str = Form(default=None),
     doc_id: Optional[str] = Form(default=None),
     source: Optional[str] = Form(default=None),
-    background_tasks: BackgroundTasks = None
+    background_tasks: BackgroundTasks = BackgroundTasks()
 ):
     """Enhanced file upload with metadata"""
     temp_path = None
@@ -369,7 +375,9 @@ async def ingest_file(
         
         # Index file
         indexer = EnhancedIndexer(namespace)
-        result = indexer._index_single_document(temp_path, reindex=False)
+        result = await asyncio.get_event_loop().run_in_executor(
+            None, indexer._index_single_document, temp_path, False
+        )
         
         if not result.success:
             raise HTTPException(status_code=400, detail=f"File ingestion failed: {result.error}")
@@ -415,7 +423,9 @@ async def query_doc(req: QueryRequest):
         config.retrieval.similarity_threshold = req.similarity_threshold
         
         try:
-            result = engine.query(req.question)
+            result = await asyncio.get_event_loop().run_in_executor(
+                None, engine.query, req.question
+            )
         finally:
             # Restore original config
             config.retrieval.max_docs = original_max_docs
@@ -450,7 +460,9 @@ async def stream_query(req: StreamingQueryRequest):
             yield f"data: {json.dumps({'type': 'start', 'message': 'Processing query...'})}\n\n"
             
             # Process query
-            result = engine.query(req.question)
+            result = await asyncio.get_event_loop().run_in_executor(
+                None, engine.query, req.question
+            )
             
             # Send answer in chunks
             answer = result.answer
@@ -501,7 +513,9 @@ async def list_documents(namespace: str = None, limit: int = 100):
     
     try:
         indexer = EnhancedIndexer(namespace)
-        documents = indexer.list_documents(limit)
+        documents = await asyncio.get_event_loop().run_in_executor(
+            None, indexer.list_documents, limit
+        )
         
         return documents
         
@@ -518,7 +532,9 @@ async def get_document_info(doc_id: str, namespace: str = None):
         indexer = EnhancedIndexer(namespace)
         
         # Get namespace stats to verify document exists
-        stats = indexer.get_namespace_stats()
+        stats = await asyncio.get_event_loop().run_in_executor(
+            None, indexer.get_namespace_stats
+        )
         
         # In a real implementation, you'd query for specific document metadata
         return {
@@ -541,7 +557,9 @@ async def delete_doc(doc_id: str, namespace: str = None):
         log_operation("api_delete_document", doc_id=doc_id, namespace=namespace)
         
         indexer = EnhancedIndexer(namespace)
-        indexer._delete_document(doc_id)
+        await asyncio.get_event_loop().run_in_executor(
+            None, indexer._delete_document, doc_id
+        )
         
         # Broadcast deletion
         await manager.broadcast({
@@ -567,8 +585,12 @@ async def get_system_stats(namespace: str = None):
         indexer = EnhancedIndexer(namespace)
         query_engine = EnhancedQueryEngine(namespace)
         
-        indexing_stats = indexer.get_namespace_stats()
-        query_stats = query_engine.get_query_stats()
+        indexing_stats = await asyncio.get_event_loop().run_in_executor(
+            None, indexer.get_namespace_stats
+        )
+        query_stats = await asyncio.get_event_loop().run_in_executor(
+            None, query_engine.get_query_stats
+        )
         
         system_health = {
             "api_status": "healthy",

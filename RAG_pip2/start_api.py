@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print("Press Ctrl+C to stop the server")
     
     uvicorn.run(
-        "api:app",
+        "api_v2:app",
         host="0.0.0.0",
         port=8000,
         reload=True,  # Auto-reload on code changes
