@@ -694,3 +694,4 @@
 2025-09-18 10:36:48,386 - rag - INFO - Document deleted
 2025-09-18 10:37:06,566 - rag - INFO - Operation: processing_query
 2025-09-18 10:37:07,044 - rag - INFO - Performance: context_retrieval took 0.48s
+2025-09-18 10:37:09,063 - rag - INFO - Performance: query_processing took 2.50s
