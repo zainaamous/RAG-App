@@ -363,24 +363,24 @@ async def dashboard_file_upload(file: UploadFile = File(...)):
 async def dashboard_file_upload_alias(file: UploadFile = File(...)):
     return await dashboard_file_upload(file)
 
+
 @app.delete("/api/documents/{doc_id}")
 async def dashboard_delete_document(doc_id: str):
     """Handle dashboard document deletion"""
     try:
+        global indexer
         if not indexer:
             raise HTTPException(status_code=503, detail="Dashboard not initialized")
-        
-        # indexer._delete_document(doc_id)
-        indexer = EnhancedIndexer(namespace)
-        await asyncio.get_event_loop().run_in_executor(
-            None, indexer._delete_document, doc_id  # doc_id is your doc_uid
-        )
-        
+        indexer._delete_document(doc_id)
         return {"status": "deleted", "doc_id": doc_id}
-        
     except Exception as e:
         logger.error(f"Dashboard document deletion failed: {e}")
         raise HTTPException(status_code=500, detail=f"Deletion failed: {str(e)}")
+
+# Alias for frontend compatibility
+@app.delete("/documents/{doc_id}")
+async def dashboard_delete_document_alias(doc_id: str):
+    return await dashboard_delete_document(doc_id)
 
 @app.get("/api/health")
 async def dashboard_health():

@@ -636,3 +636,61 @@
 2025-09-17 14:59:22,370 - rag - INFO - Operation: initializing_query_engine
 2025-09-17 14:59:22,387 - rag - INFO - Query engine components initialized successfully
 2025-09-17 14:59:22,388 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 15:37:48,585 - rag - INFO - Initializing dashboard components
+2025-09-17 15:37:48,587 - rag - INFO - Operation: initializing_indexer
+2025-09-17 15:37:49,428 - rag - INFO - Indexer components initialized successfully
+2025-09-17 15:37:49,430 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 15:37:49,446 - rag - INFO - Query engine components initialized successfully
+2025-09-17 15:37:49,447 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 15:39:05,425 - rag - INFO - Operation: processing_query
+2025-09-17 15:39:07,126 - rag - INFO - Performance: context_retrieval took 1.70s
+2025-09-17 15:39:10,165 - rag - INFO - Performance: query_processing took 4.74s
+2025-09-18 10:02:21,026 - rag - INFO - Initializing dashboard components
+2025-09-18 10:02:21,026 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:02:29,306 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:02:29,307 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:02:29,320 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:02:29,322 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:04:12,226 - rag - INFO - Operation: processing_query
+2025-09-18 10:04:14,059 - rag - INFO - Performance: context_retrieval took 1.83s
+2025-09-18 10:04:17,598 - rag - INFO - Performance: query_processing took 5.37s
+2025-09-18 10:05:31,468 - rag - INFO - Operation: processing_query
+2025-09-18 10:05:32,963 - rag - INFO - Performance: context_retrieval took 1.49s
+2025-09-18 10:05:35,206 - rag - INFO - Performance: query_processing took 3.74s
+2025-09-18 10:18:38,448 - rag - INFO - Initializing dashboard components
+2025-09-18 10:18:38,449 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:18:39,155 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:18:39,157 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:18:39,176 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:18:39,178 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:24:42,137 - rag - INFO - Initializing dashboard components
+2025-09-18 10:24:42,138 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:24:48,133 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:24:48,134 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:24:48,146 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:24:48,147 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:25:05,935 - rag - INFO - Initializing dashboard components
+2025-09-18 10:25:05,936 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:25:06,372 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:25:06,373 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:25:06,383 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:25:06,384 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:25:23,532 - rag - ERROR - Dashboard document deletion failed: local variable 'indexer' referenced before assignment
+2025-09-18 10:27:04,886 - rag - INFO - Initializing dashboard components
+2025-09-18 10:27:04,886 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:27:05,353 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:27:05,354 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:27:05,365 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:27:05,366 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:27:17,678 - rag - INFO - Document deleted
+2025-09-18 10:27:33,724 - rag - INFO - Document deleted
+2025-09-18 10:27:51,351 - rag - INFO - Document deleted
+2025-09-18 10:28:06,020 - rag - INFO - Operation: processing_query
+2025-09-18 10:28:07,807 - rag - INFO - Performance: context_retrieval took 1.78s
+2025-09-18 10:28:11,039 - rag - INFO - Performance: query_processing took 5.02s
+2025-09-18 10:36:37,419 - rag - INFO - Operation: processing_query
+2025-09-18 10:36:39,026 - rag - INFO - Performance: context_retrieval took 1.60s
+2025-09-18 10:36:42,396 - rag - INFO - Performance: query_processing took 4.98s
+2025-09-18 10:36:48,386 - rag - INFO - Document deleted
+2025-09-18 10:37:06,566 - rag - INFO - Operation: processing_query
+2025-09-18 10:37:07,044 - rag - INFO - Performance: context_retrieval took 0.48s
