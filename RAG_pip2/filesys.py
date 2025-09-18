@@ -1,6 +1,7 @@
 import os, glob, hashlib, pathlib
 from urllib.parse import urlparse
 from typing import List
+from langchain.document_loaders import UnstructuredExcelLoader
 from langchain_core.documents import Document
 try:
     # Newer LangChain split: loaders live in langchain_community
@@ -15,7 +16,7 @@ except ImportError:  # Fallback for older LangChain versions
     )
 #find files, load them into document objects, and compute stable IDs
 
-SUPPORTED_EXTS = {".pdf", ".docx", ".txt", ".md", ".log", ".csv", ".html", ".htm"}
+SUPPORTED_EXTS = {".pdf", ".docx", ".txt", ".md", ".log", ".csv", ".html", ".htm" , ".xls", ".xlsx" , ".pptx"}
 
 def is_url(path: str) -> bool:
     p = urlparse(path)
@@ -48,24 +49,39 @@ def iter_files(paths: List[str]) -> List[str]:
 
 def load_one_local(path: str, user_agent: str) -> List[Document]:
     """Load a single local file into one or more Documents."""
-    ext = pathlib.Path(path).suffix.lower()
-    if ext == ".pdf":
-        loader = PyPDFLoader(path)
-    elif ext == ".docx":
-        loader = Docx2txtLoader(path)
-    elif ext in {".txt", ".md", ".log"}:
-        loader = TextLoader(path, encoding="utf-8", autodetect_encoding=True)
-    elif ext == ".csv":
-        loader = CSVLoader(path)
-    elif ext in {".html", ".htm"}:
-        loader = BSHTMLLoader(path)
-    else:
-        loader = UnstructuredFileLoader(path)
-    docs = loader.load()
-    for d in docs:
-        d.metadata = d.metadata or {}
-        d.metadata["source"] = path
-    return docs
+    try:
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"File not found: {path}")
+            
+        ext = pathlib.Path(path).suffix.lower()
+        if ext == ".pdf":
+            loader = PyPDFLoader(path)
+        elif ext == ".docx":
+            loader = Docx2txtLoader(path)
+        elif ext in {".txt", ".md", ".log" , ".xls", ".xlsx" , ".pptx"}:
+            loader = TextLoader(path, encoding="utf-8", autodetect_encoding=True)
+        elif ext == ".csv":
+            loader = CSVLoader(path)
+        elif ext in {".xls", ".xlsx"}:  
+            loader = UnstructuredExcelLoader(path, mode="elements")
+        elif ext in {".html", ".htm"}:
+            loader = BSHTMLLoader(path)
+        else:
+            loader = UnstructuredFileLoader(path)
+            
+        docs = loader.load()
+        if not docs:
+            print(f"[WARN] No content loaded from {path}")
+            return []
+            
+        for d in docs:
+            d.metadata = d.metadata or {}
+            d.metadata["source"] = path
+        return docs
+        
+    except Exception as e:
+        print(f"[ERR] Failed to load {path}: {e}")
+        return []
 
 def doc_uid_for_path(path: str) -> str:
     # stable, cross-run: hash normalized absolute path

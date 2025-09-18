@@ -10,11 +10,16 @@ import yaml
 from pathlib import Path
 from typing import Dict, Any, Optional, Union
 from dataclasses import dataclass, asdict
-from dotenv import load_dotenv
 import logging
 
-# Load environment variables
-load_dotenv()
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # dotenv is optional, continue without it
+    pass
+
+# Environment variables are loaded above in the try/except block
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -253,6 +258,30 @@ class ConfigManager:
 # Global configuration instance
 config_manager = ConfigManager()
 config = config_manager.get_config()
+
+# Validate configuration on import
+def validate_required_config():
+    """Validate that all required configuration is present"""
+    required_vars = [
+        'PINECONE_API_KEY',
+        'GOOGLE_API_KEY', 
+        'PINECONE_INDEX_NAME',
+        'RAG_NAMESPACE'
+    ]
+    
+    missing_vars = []
+    for var in required_vars:
+        if not os.getenv(var):
+            missing_vars.append(var)
+    
+    if missing_vars:
+        logger.warning(f"Missing environment variables: {missing_vars}")
+        logger.warning("Some features may not work properly")
+    
+    return len(missing_vars) == 0
+
+# Run validation
+validate_required_config()
 
 # Backward compatibility - expose commonly used settings
 GOOGLE_API_KEY = config.google_api_key

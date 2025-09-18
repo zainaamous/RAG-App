@@ -7,14 +7,16 @@ import tempfile
 import uuid
 import asyncio
 from typing import List, Optional, Dict, Any, AsyncGenerator
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
+from collections import defaultdict
 
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, BackgroundTasks, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, validator
+import re
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
@@ -24,9 +26,52 @@ from config import config, config_manager, ConfigManager
 from logger import logger, log_operation, log_performance, log_error
 from indexer import EnhancedIndexer, IndexingResult, IndexingStats
 from query_engine import EnhancedQueryEngine, QueryResult, QueryType
+from conversation_manager import conversation_manager, ConversationMessage, ConversationSummary
+# Optional system monitoring
+try:
+    from system_monitor import system_monitor, check_pinecone_health, check_llm_health, check_database_health
+    SYSTEM_MONITOR_AVAILABLE = True
+except ImportError:
+    SYSTEM_MONITOR_AVAILABLE = False
+    # Create dummy functions
+    def system_monitor():
+        return None
+    def check_pinecone_health():
+        return True
+    def check_llm_health():
+        return True
+    def check_database_health():
+        return True
 
 # Security
 security = HTTPBearer(auto_error=False)
+
+# Rate limiting
+class RateLimiter:
+    def __init__(self, max_requests: int = 100, window_seconds: int = 60):
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.requests = defaultdict(list)
+    
+    def is_allowed(self, client_ip: str) -> bool:
+        now = datetime.now()
+        window_start = now - timedelta(seconds=self.window_seconds)
+        
+        # Clean old requests
+        self.requests[client_ip] = [
+            req_time for req_time in self.requests[client_ip] 
+            if req_time > window_start
+        ]
+        
+        # Check if under limit
+        if len(self.requests[client_ip]) >= self.max_requests:
+            return False
+        
+        # Add current request
+        self.requests[client_ip].append(now)
+        return True
+
+rate_limiter = RateLimiter(max_requests=100, window_seconds=60)
 
 app = FastAPI(
     title="Enhanced RAG Knowledge Base API v2",
@@ -45,21 +90,36 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Request logging middleware
+# Request logging middleware with rate limiting
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         start_time = datetime.now()
+        client_ip = request.client.host if request.client else "unknown"
+        
+        # Check rate limit
+        if not rate_limiter.is_allowed(client_ip):
+            return Response(
+                content="Rate limit exceeded. Please try again later.",
+                status_code=429,
+                headers={"Retry-After": "60"}
+            )
         
         # Log request
         log_operation("api_request", 
                      method=request.method,
                      url=str(request.url),
-                     client_ip=request.client.host)
+                     client_ip=client_ip)
         
         response = await call_next(request)
         
-        # Log response
+        # Log response and record metrics
         duration = (datetime.now() - start_time).total_seconds()
+        is_error = response.status_code >= 400
+        
+        # Record request metrics
+        if SYSTEM_MONITOR_AVAILABLE and system_monitor:
+            system_monitor.record_request(duration, is_error)
+        
         log_performance("api_request", duration,
                        status_code=response.status_code,
                        method=request.method)
@@ -89,11 +149,30 @@ class QueryRequest(BaseModel):
     k_per_doc: int = Field(default=6, ge=1, le=20)
     similarity_threshold: float = Field(default=0.7, ge=0.0, le=1.0)
     stream: bool = False
+    conversation_id: Optional[str] = None
+    
+    @validator('question')
+    def validate_question(cls, v):
+        if not v or not v.strip():
+            raise ValueError('Question cannot be empty')
+        if len(v) > 10000:
+            raise ValueError('Question too long (max 10000 characters)')
+        # Basic XSS protection
+        if re.search(r'<script|javascript:|data:', v, re.IGNORECASE):
+            raise ValueError('Question contains potentially harmful content')
+        return v.strip()
+    
+    @validator('conversation_id')
+    def validate_conversation_id(cls, v):
+        if v and not re.match(r'^[a-f0-9-]{36}$', v):
+            raise ValueError('Invalid conversation ID format')
+        return v
 
 class StreamingQueryRequest(BaseModel):
     question: str
     namespace: str = Field(default_factory=lambda: config.rag_namespace)
     chunk_size: int = Field(default=50, ge=10, le=200)
+    conversation_id: Optional[str] = None
 
 class DocumentResponse(BaseModel):
     doc_id: str
@@ -114,6 +193,7 @@ class EnhancedQueryResponse(BaseModel):
     total_chunks_retrieved: int
     relevant_chunks_used: int
     metadata: Dict[str, Any]
+    conversation_id: Optional[str] = None
 
 class HealthResponse(BaseModel):
     status: str
@@ -126,6 +206,21 @@ class SystemStatsResponse(BaseModel):
     indexing_stats: Dict[str, Any]
     query_stats: Dict[str, Any]
     system_health: Dict[str, Any]
+
+class ConversationRequest(BaseModel):
+    title: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = {}
+
+class ConversationResponse(BaseModel):
+    conversation_id: str
+    title: str
+    created_at: str
+    message_count: int
+
+class ConversationHistoryResponse(BaseModel):
+    conversation_id: str
+    messages: List[Dict[str, Any]]
+    summary: Optional[str] = None
 
 # ---- WEBSOCKET CONNECTIONS ----
 class ConnectionManager:
@@ -191,10 +286,29 @@ async def health_check(namespace: str = None):
     namespace = namespace or config.rag_namespace
     
     try:
-        indexer = EnhancedIndexer(namespace)
-        stats = await asyncio.get_event_loop().run_in_executor(
-            None, indexer.get_namespace_stats
-        )
+        # Use system monitor for comprehensive health check
+        if SYSTEM_MONITOR_AVAILABLE and system_monitor:
+            system_status = system_monitor.get_system_status()
+            
+            # Test all components using system monitor
+            pinecone_health = system_monitor.check_component_health("pinecone", check_pinecone_health)
+            llm_health = system_monitor.check_component_health("llm", check_llm_health)
+            db_health = system_monitor.check_component_health("database", check_database_health)
+        else:
+            # Fallback without system monitor
+            system_status = {"overall_status": "healthy", "uptime_seconds": 0}
+            pinecone_health = type('obj', (object,), {'status': 'healthy'})()
+            llm_health = type('obj', (object,), {'status': 'healthy'})()
+            db_health = type('obj', (object,), {'status': 'healthy'})()
+        
+        # Get indexer stats
+        try:
+            indexer = EnhancedIndexer(namespace)
+            stats = await asyncio.get_event_loop().run_in_executor(
+                None, indexer.get_namespace_stats
+            )
+        except Exception as e:
+            stats = {"vector_count": 0, "index_dimension": 0}
         
         system_info = {
             "version": "2.0.0",
@@ -204,15 +318,21 @@ async def health_check(namespace: str = None):
                 "llm_model": config.llm.model
             },
             "vector_count": stats.get("vector_count", 0),
-            "index_dimension": stats.get("index_dimension", 0)
+            "index_dimension": stats.get("index_dimension", 0),
+            "system_status": system_status,
+            "component_health": {
+                "pinecone": pinecone_health.status,
+                "llm": llm_health.status,
+                "database": db_health.status
+            }
         }
         
         return HealthResponse(
-            status="healthy",
+            status=system_status["overall_status"],
             namespace=namespace,
             vector_count=stats.get("vector_count"),
             system_info=system_info,
-            uptime="N/A"  # Could implement uptime tracking
+            uptime=f"{system_status['uptime_seconds']:.0f}s"
         )
         
     except Exception as e:
@@ -432,9 +552,15 @@ async def query_doc(req: QueryRequest):
         config.retrieval.similarity_threshold = req.similarity_threshold
         
         try:
-            result = await asyncio.get_event_loop().run_in_executor(
-                None, engine.query, req.question
-            )
+            # Use conversation-aware query if conversation_id is provided
+            if req.conversation_id:
+                result = await asyncio.get_event_loop().run_in_executor(
+                    None, engine.answer_question, req.question, req.conversation_id
+                )
+            else:
+                result = await asyncio.get_event_loop().run_in_executor(
+                    None, engine.query, req.question
+                )
         finally:
             # Restore original config
             config.retrieval.max_docs = original_max_docs
@@ -450,7 +576,8 @@ async def query_doc(req: QueryRequest):
             processing_time=result.processing_time,
             total_chunks_retrieved=result.total_chunks_retrieved,
             relevant_chunks_used=result.relevant_chunks_used,
-            metadata=result.metadata
+            metadata=result.metadata,
+            conversation_id=result.metadata.get("conversation_id")
         )
         
     except Exception as e:
@@ -601,11 +728,22 @@ async def get_system_stats(namespace: str = None):
             None, query_engine.get_query_stats
         )
         
+        # Get system monitoring data
+        if SYSTEM_MONITOR_AVAILABLE and system_monitor:
+            system_status = system_monitor.get_system_status()
+            performance_summary = system_monitor.get_performance_summary()
+        else:
+            system_status = {"overall_status": "healthy", "uptime_seconds": 0, "request_count": 0, "error_count": 0, "error_rate": 0}
+            performance_summary = {"message": "System monitoring not available"}
+        
         system_health = {
-            "api_status": "healthy",
-            "database_status": "connected",
-            "memory_usage": "N/A",  # Could implement actual memory monitoring
-            "uptime": "N/A"
+            "overall_status": system_status["overall_status"],
+            "uptime_seconds": system_status["uptime_seconds"],
+            "request_count": system_status["request_count"],
+            "error_count": system_status["error_count"],
+            "error_rate_percent": system_status["error_rate"],
+            "performance": performance_summary,
+            "latest_metrics": system_status["latest_metrics"]
         }
         
         return SystemStatsResponse(
@@ -617,6 +755,27 @@ async def get_system_stats(namespace: str = None):
     except Exception as e:
         log_error(e, "api_system_stats")
         raise HTTPException(status_code=500, detail=f"Failed to get system stats: {str(e)}")
+
+@app.get("/metrics")
+async def get_metrics(hours: int = 24):
+    """Get system metrics history"""
+    try:
+        if SYSTEM_MONITOR_AVAILABLE and system_monitor:
+            metrics_history = system_monitor.get_metrics_history(hours=hours)
+            performance_summary = system_monitor.get_performance_summary()
+        else:
+            metrics_history = []
+            performance_summary = {"message": "System monitoring not available"}
+        
+        return {
+            "metrics_history": metrics_history,
+            "performance_summary": performance_summary,
+            "time_range_hours": hours
+        }
+        
+    except Exception as e:
+        log_error(e, "api_metrics")
+        raise HTTPException(status_code=500, detail=f"Failed to get metrics: {str(e)}")
 
 @app.post("/config/reload")
 async def reload_config():
@@ -631,7 +790,130 @@ async def reload_config():
         log_error(e, "api_reload_config")
         raise HTTPException(status_code=500, detail=f"Config reload failed: {str(e)}")
 
+# ---- CONVERSATION MANAGEMENT ENDPOINTS ----
 
+@app.post("/conversations", response_model=ConversationResponse)
+async def create_conversation(req: ConversationRequest):
+    """Create a new conversation"""
+    try:
+        conversation_id = conversation_manager.create_conversation(
+            title=req.title, 
+            metadata=req.metadata
+        )
+        
+        return ConversationResponse(
+            conversation_id=conversation_id,
+            title=req.title or f"Conversation {datetime.now().strftime('%Y-%m-%d %H:%M')}",
+            created_at=datetime.now().isoformat(),
+            message_count=0
+        )
+        
+    except Exception as e:
+        log_error(e, "api_create_conversation")
+        raise HTTPException(status_code=500, detail=f"Failed to create conversation: {str(e)}")
+
+@app.get("/conversations", response_model=List[ConversationResponse])
+async def list_conversations(limit: int = 50):
+    """List recent conversations"""
+    try:
+        conversations = conversation_manager.list_conversations(limit=limit)
+        
+        return [
+            ConversationResponse(
+                conversation_id=conv["conversation_id"],
+                title=conv["title"],
+                created_at=conv["created_at"],
+                message_count=conv["message_count"]
+            )
+            for conv in conversations
+        ]
+        
+    except Exception as e:
+        log_error(e, "api_list_conversations")
+        raise HTTPException(status_code=500, detail=f"Failed to list conversations: {str(e)}")
+
+@app.get("/conversations/{conversation_id}", response_model=ConversationHistoryResponse)
+async def get_conversation_history(conversation_id: str, limit: int = 50):
+    """Get conversation history"""
+    try:
+        messages = conversation_manager.load_conversation_history(conversation_id, limit=limit)
+        
+        # Get conversation summary if available
+        summary_obj = conversation_manager.get_conversation_summary(conversation_id)
+        summary_text = summary_obj.summary_text if summary_obj else None
+        
+        return ConversationHistoryResponse(
+            conversation_id=conversation_id,
+            messages=[
+                {
+                    "message_id": msg.message_id,
+                    "role": msg.role,
+                    "content": msg.content,
+                    "timestamp": msg.timestamp.isoformat(),
+                    "metadata": msg.metadata
+                }
+                for msg in messages
+            ],
+            summary=summary_text
+        )
+        
+    except Exception as e:
+        log_error(e, "api_get_conversation_history", conversation_id=conversation_id)
+        raise HTTPException(status_code=500, detail=f"Failed to get conversation history: {str(e)}")
+
+@app.delete("/conversations/{conversation_id}")
+async def delete_conversation(conversation_id: str):
+    """Delete a conversation"""
+    try:
+        success = conversation_manager.delete_conversation(conversation_id)
+        
+        if success:
+            return {"status": "deleted", "conversation_id": conversation_id}
+        else:
+            raise HTTPException(status_code=404, detail="Conversation not found")
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_error(e, "api_delete_conversation", conversation_id=conversation_id)
+        raise HTTPException(status_code=500, detail=f"Failed to delete conversation: {str(e)}")
+
+@app.post("/conversations/{conversation_id}/summarize")
+async def summarize_conversation(conversation_id: str):
+    """Manually trigger conversation summarization"""
+    try:
+        # Check if conversation exists
+        history = conversation_manager.load_conversation_history(conversation_id, limit=1)
+        if not history:
+            raise HTTPException(status_code=404, detail="Conversation not found")
+        
+        # Create query engine to generate summary
+        engine = EnhancedQueryEngine(config.rag_namespace)
+        engine._create_conversation_summary(conversation_id)
+        
+        return {"status": "summarized", "conversation_id": conversation_id}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        log_error(e, "api_summarize_conversation", conversation_id=conversation_id)
+        raise HTTPException(status_code=500, detail=f"Failed to summarize conversation: {str(e)}")
+
+@app.post("/conversations/cleanup")
+async def cleanup_old_conversations(days_old: int = 30):
+    """Clean up old conversations"""
+    try:
+        deleted_count = conversation_manager.cleanup_old_conversations(days_old=days_old)
+        
+        return {
+            "status": "cleaned_up",
+            "deleted_count": deleted_count,
+            "days_old": days_old
+        }
+        
+    except Exception as e:
+        log_error(e, "api_cleanup_conversations")
+        raise HTTPException(status_code=500, detail=f"Failed to cleanup conversations: {str(e)}")
 
 if __name__ == "__main__":
     import uvicorn

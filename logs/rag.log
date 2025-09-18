@@ -1,0 +1,266 @@
+2025-09-17 13:05:43,845 - rag - INFO - Operation: api_request
+2025-09-17 13:05:43,846 - rag - INFO - Performance: api_request took 0.00s
+2025-09-17 13:05:44,098 - rag - INFO - Operation: api_request
+2025-09-17 13:05:44,109 - rag - INFO - Performance: api_request took 0.01s
+2025-09-17 13:05:58,000 - rag - INFO - Operation: api_request
+2025-09-17 13:05:58,007 - rag - INFO - Operation: api_ingest
+2025-09-17 13:05:58,012 - rag - INFO - Operation: initializing_indexer
+2025-09-17 13:06:00,572 - rag - INFO - Indexer components initialized successfully
+2025-09-17 13:06:00,574 - rag - INFO - Operation: indexing_document
+2025-09-17 13:06:04,142 - rag - DEBUG - Sentinel upserted
+2025-09-17 13:06:04,145 - rag - INFO - Performance: document_indexing took 3.57s
+2025-09-17 13:06:04,158 - rag - INFO - Performance: api_request took 6.16s
+2025-09-17 13:06:07,720 - rag - INFO - Operation: api_request
+2025-09-17 13:06:07,723 - rag - INFO - Operation: api_ingest
+2025-09-17 13:06:07,730 - rag - INFO - Operation: initializing_indexer
+2025-09-17 13:06:07,747 - rag - INFO - Indexer components initialized successfully
+2025-09-17 13:06:07,751 - rag - INFO - Operation: indexing_document
+2025-09-17 13:06:11,082 - rag - DEBUG - Sentinel upserted
+2025-09-17 13:06:11,084 - rag - INFO - Performance: document_indexing took 3.33s
+2025-09-17 13:06:11,091 - rag - INFO - Performance: api_request took 3.37s
+2025-09-17 13:06:52,728 - rag - INFO - Initializing dashboard components
+2025-09-17 13:06:52,728 - rag - INFO - Operation: initializing_indexer
+2025-09-17 13:06:57,328 - rag - INFO - Indexer components initialized successfully
+2025-09-17 13:06:57,329 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 13:06:57,370 - rag - INFO - Query engine components initialized successfully
+2025-09-17 13:06:57,371 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 13:09:27,567 - rag - INFO - Operation: indexing_document
+2025-09-17 13:09:27,823 - rag - ERROR - Error in indexing_document: Error loading C:\Users\Zaina\AppData\Local\Temp\tmpr29bqq5b_cleaned_data.csv
+2025-09-17 13:10:01,394 - rag - INFO - Operation: indexing_document
+2025-09-17 13:10:01,583 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 13:10:15,135 - rag - INFO - Operation: indexing_document
+2025-09-17 13:10:15,303 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 13:10:53,653 - rag - INFO - Operation: indexing_document
+2025-09-17 13:10:53,872 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 13:11:13,726 - rag - INFO - Initializing dashboard components
+2025-09-17 13:11:13,727 - rag - INFO - Operation: initializing_indexer
+2025-09-17 13:11:19,004 - rag - INFO - Indexer components initialized successfully
+2025-09-17 13:11:19,006 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 13:11:19,017 - rag - INFO - Query engine components initialized successfully
+2025-09-17 13:11:19,017 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 13:19:50,881 - rag - INFO - Initializing dashboard components
+2025-09-17 13:19:50,882 - rag - INFO - Operation: initializing_indexer
+2025-09-17 13:19:51,640 - rag - INFO - Indexer components initialized successfully
+2025-09-17 13:19:51,640 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 13:19:51,648 - rag - INFO - Query engine components initialized successfully
+2025-09-17 13:19:51,649 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 13:24:31,441 - rag - INFO - Initializing dashboard components
+2025-09-17 13:24:31,442 - rag - INFO - Operation: initializing_indexer
+2025-09-17 13:24:32,218 - rag - INFO - Indexer components initialized successfully
+2025-09-17 13:24:32,218 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 13:24:32,222 - rag - INFO - Query engine components initialized successfully
+2025-09-17 13:24:32,223 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 13:27:59,880 - rag - INFO - Operation: indexing_document
+2025-09-17 13:28:00,039 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 14:05:50,332 - rag - INFO - Initializing dashboard components
+2025-09-17 14:05:50,333 - rag - INFO - Operation: initializing_indexer
+2025-09-17 14:05:51,642 - rag - INFO - Indexer components initialized successfully
+2025-09-17 14:05:51,643 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 14:05:51,654 - rag - INFO - Query engine components initialized successfully
+2025-09-17 14:05:51,655 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 14:06:39,938 - rag - INFO - Operation: indexing_document
+2025-09-17 14:06:42,423 - rag - DEBUG - Sentinel upserted
+2025-09-17 14:06:42,425 - rag - INFO - Performance: document_indexing took 2.49s
+2025-09-17 14:07:00,851 - rag - INFO - Operation: processing_query
+2025-09-17 14:07:03,685 - rag - INFO - Performance: context_retrieval took 2.83s
+2025-09-17 14:07:11,817 - rag - INFO - Performance: query_processing took 10.97s
+2025-09-17 14:07:49,100 - rag - INFO - Operation: processing_query
+2025-09-17 14:07:49,697 - rag - INFO - Performance: context_retrieval took 0.59s
+2025-09-17 14:07:56,770 - rag - INFO - Performance: query_processing took 7.67s
+2025-09-17 14:08:29,136 - rag - INFO - Operation: indexing_document
+2025-09-17 14:08:30,874 - rag - DEBUG - Sentinel upserted
+2025-09-17 14:08:30,877 - rag - INFO - Performance: document_indexing took 1.74s
+2025-09-17 14:08:51,355 - rag - INFO - Operation: processing_query
+2025-09-17 14:08:53,976 - rag - INFO - Performance: context_retrieval took 2.62s
+2025-09-17 14:08:59,808 - rag - INFO - Performance: query_processing took 8.45s
+2025-09-17 14:09:23,200 - rag - INFO - Operation: processing_query
+2025-09-17 14:09:23,950 - rag - INFO - Performance: context_retrieval took 0.75s
+2025-09-17 14:09:29,034 - rag - INFO - Performance: query_processing took 5.83s
+2025-09-17 14:10:14,095 - rag - INFO - Operation: processing_query
+2025-09-17 14:10:14,842 - rag - INFO - Performance: context_retrieval took 0.75s
+2025-09-17 14:10:36,105 - rag - INFO - Performance: query_processing took 22.01s
+2025-09-17 14:12:47,758 - rag - INFO - Operation: indexing_document
+2025-09-17 14:12:47,956 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 14:12:59,124 - rag - INFO - Operation: indexing_document
+2025-09-17 14:12:59,279 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 14:35:07,763 - rag - INFO - Initializing dashboard components
+2025-09-17 14:35:07,763 - rag - INFO - Operation: initializing_indexer
+2025-09-17 14:35:09,259 - rag - INFO - Indexer components initialized successfully
+2025-09-17 14:35:09,260 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 14:35:09,270 - rag - INFO - Query engine components initialized successfully
+2025-09-17 14:35:09,271 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 14:35:41,329 - rag - INFO - Operation: indexing_document
+2025-09-17 14:35:41,489 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-17 15:36:18,975 - rag - INFO - Conversation database initialized successfully
+2025-09-17 15:36:19,210 - rag - INFO - Initializing dashboard components
+2025-09-17 15:36:19,211 - rag - INFO - Operation: initializing_indexer
+2025-09-17 15:36:20,155 - rag - INFO - Indexer components initialized successfully
+2025-09-17 15:36:20,156 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 15:36:20,164 - rag - INFO - Query engine components initialized successfully
+2025-09-17 15:36:20,164 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 15:42:11,106 - rag - INFO - Operation: indexing_document
+2025-09-17 15:42:11,261 - rag - ERROR - Error in indexing_document: No content extracted from C:\Users\Zaina\AppData\Local\Temp\tmpl5lam3f7_Application Form_ D (1).pdf
+2025-09-17 15:42:21,234 - rag - INFO - Operation: indexing_document
+2025-09-17 15:42:21,432 - rag - ERROR - Error in indexing_document: No content extracted from C:\Users\Zaina\AppData\Local\Temp\tmp70hc2oeq_Application_Form_D_Final (1).docx
+2025-09-17 15:42:32,515 - rag - INFO - Operation: processing_query
+2025-09-17 15:42:34,475 - rag - INFO - Performance: context_retrieval took 1.96s
+2025-09-17 15:42:37,945 - rag - INFO - Performance: query_processing took 5.43s
+2025-09-17 15:50:38,431 - rag - INFO - Conversation database initialized successfully
+2025-09-17 15:50:38,495 - rag - INFO - Initializing dashboard components
+2025-09-17 15:50:38,496 - rag - INFO - Operation: initializing_indexer
+2025-09-17 15:50:42,237 - rag - INFO - Indexer components initialized successfully
+2025-09-17 15:50:42,238 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 15:50:42,248 - rag - INFO - Query engine components initialized successfully
+2025-09-17 15:50:42,248 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 15:52:39,860 - rag - INFO - Operation: indexing_document
+2025-09-17 15:52:40,138 - rag - ERROR - Error in indexing_document: No content extracted from C:\Users\Zaina\AppData\Local\Temp\tmpy_u5s1zb_Zaina-Hosting.pdf
+2025-09-17 15:54:39,744 - rag - INFO - Conversation database initialized successfully
+2025-09-17 15:54:39,808 - rag - INFO - Initializing dashboard components
+2025-09-17 15:54:39,808 - rag - INFO - Operation: initializing_indexer
+2025-09-17 15:54:40,525 - rag - INFO - Indexer components initialized successfully
+2025-09-17 15:54:40,526 - rag - INFO - Operation: initializing_query_engine
+2025-09-17 15:54:40,533 - rag - INFO - Query engine components initialized successfully
+2025-09-17 15:54:40,534 - rag - INFO - Dashboard components initialized successfully
+2025-09-17 16:13:53,779 - rag - INFO - Conversation database initialized successfully
+2025-09-17 16:13:53,783 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:14:23,787 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:14:53,788 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:15:23,790 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:15:53,792 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:16:23,795 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:16:53,797 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:17:23,800 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:17:53,801 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:18:23,803 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:18:53,806 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:19:23,807 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:19:53,809 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:20:23,811 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:20:53,813 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:21:23,814 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:21:53,816 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:22:23,818 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:22:53,819 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:23:23,822 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:23:53,823 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:24:23,825 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:24:53,826 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:25:23,828 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:25:53,830 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:26:23,832 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:26:53,834 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:27:23,837 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:27:53,839 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:28:23,841 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:28:53,843 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:29:23,845 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:29:53,846 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:30:23,849 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:30:53,850 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:31:23,852 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:31:53,854 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:32:23,856 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:32:53,858 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:33:23,860 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:33:53,861 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:35:31,414 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:36:01,426 - rag - INFO - Operation: system_metrics_collected
+2025-09-17 16:36:31,427 - rag - INFO - Operation: system_metrics_collected
+2025-09-18 10:48:23,803 - rag - INFO - Conversation database initialized successfully
+2025-09-18 10:48:23,826 - rag - INFO - Operation: conversation_created
+2025-09-18 10:48:23,848 - rag - INFO - Operation: conversation_deleted
+2025-09-18 10:48:25,686 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:48:28,865 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:48:48,860 - rag - INFO - Conversation database initialized successfully
+2025-09-18 10:48:48,940 - rag - INFO - Initializing dashboard components
+2025-09-18 10:48:48,941 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:48:56,195 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:48:56,195 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:48:56,205 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:48:56,205 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:49:41,806 - rag - INFO - Conversation database initialized successfully
+2025-09-18 10:49:41,847 - rag - INFO - Initializing dashboard components
+2025-09-18 10:49:41,848 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:49:42,451 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:49:42,452 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:49:42,459 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:49:42,460 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:50:09,422 - rag - INFO - Operation: processing_query
+2025-09-18 10:50:11,445 - rag - INFO - Performance: context_retrieval took 2.02s
+2025-09-18 10:50:13,784 - rag - INFO - Performance: query_processing took 4.36s
+2025-09-18 10:50:25,059 - rag - INFO - Operation: processing_query
+2025-09-18 10:50:25,729 - rag - INFO - Performance: context_retrieval took 0.67s
+2025-09-18 10:50:27,371 - rag - INFO - Performance: query_processing took 2.31s
+2025-09-18 10:50:33,203 - rag - INFO - Operation: processing_query
+2025-09-18 10:50:33,677 - rag - INFO - Performance: context_retrieval took 0.47s
+2025-09-18 10:50:36,277 - rag - INFO - Performance: query_processing took 3.07s
+2025-09-18 10:50:53,454 - rag - INFO - Operation: indexing_document
+2025-09-18 10:50:53,605 - rag - ERROR - Error in indexing_document: No content extracted from C:\Users\Zaina\AppData\Local\Temp\tmp3w7ud28n_zainaamous_cv.pdf
+2025-09-18 10:51:15,455 - rag - INFO - Operation: indexing_document
+2025-09-18 10:51:17,359 - rag - DEBUG - Sentinel upserted
+2025-09-18 10:51:17,360 - rag - INFO - Performance: document_indexing took 1.91s
+2025-09-18 10:52:38,631 - rag - INFO - Operation: processing_query
+2025-09-18 10:52:40,300 - rag - INFO - Performance: context_retrieval took 1.67s
+2025-09-18 10:52:48,053 - rag - INFO - Performance: query_processing took 9.42s
+2025-09-18 10:53:06,913 - rag - INFO - Operation: processing_query
+2025-09-18 10:53:07,436 - rag - INFO - Performance: context_retrieval took 0.52s
+2025-09-18 10:53:10,757 - rag - INFO - Performance: query_processing took 3.84s
+2025-09-18 10:53:25,187 - rag - INFO - Operation: processing_query
+2025-09-18 10:53:25,667 - rag - INFO - Performance: context_retrieval took 0.48s
+2025-09-18 10:53:29,705 - rag - INFO - Performance: query_processing took 4.52s
+2025-09-18 10:54:29,360 - rag - INFO - Operation: processing_query
+2025-09-18 10:54:31,023 - rag - INFO - Performance: context_retrieval took 1.66s
+2025-09-18 10:54:33,028 - rag - INFO - Performance: query_processing took 3.67s
+2025-09-18 10:54:49,548 - rag - INFO - Operation: processing_query
+2025-09-18 10:54:50,035 - rag - INFO - Performance: context_retrieval took 0.49s
+2025-09-18 10:54:59,630 - rag - INFO - Performance: query_processing took 10.08s
+2025-09-18 10:57:44,058 - rag - INFO - Operation: processing_query
+2025-09-18 10:57:45,857 - rag - INFO - Performance: context_retrieval took 1.80s
+2025-09-18 10:57:52,060 - rag - INFO - Performance: query_processing took 8.00s
+2025-09-18 10:58:05,327 - rag - INFO - Operation: processing_query
+2025-09-18 10:58:05,823 - rag - INFO - Performance: context_retrieval took 0.50s
+2025-09-18 10:58:09,538 - rag - INFO - Performance: query_processing took 4.21s
+2025-09-18 10:58:29,797 - rag - INFO - Operation: processing_query
+2025-09-18 10:58:30,398 - rag - INFO - Performance: context_retrieval took 0.60s
+2025-09-18 10:58:33,828 - rag - INFO - Performance: query_processing took 4.03s
+2025-09-18 10:58:43,917 - rag - INFO - Operation: processing_query
+2025-09-18 10:58:44,419 - rag - INFO - Performance: context_retrieval took 0.50s
+2025-09-18 10:58:47,783 - rag - INFO - Performance: query_processing took 3.87s
+2025-09-18 11:02:04,486 - rag - INFO - Operation: indexing_document
+2025-09-18 11:02:06,417 - rag - DEBUG - Sentinel upserted
+2025-09-18 11:02:06,418 - rag - INFO - Performance: document_indexing took 1.93s
+2025-09-18 11:02:25,872 - rag - INFO - Operation: processing_query
+2025-09-18 11:02:27,554 - rag - INFO - Performance: context_retrieval took 1.68s
+2025-09-18 11:02:36,837 - rag - INFO - Performance: query_processing took 10.96s
+2025-09-18 11:02:52,181 - rag - INFO - Operation: processing_query
+2025-09-18 11:02:52,657 - rag - INFO - Performance: context_retrieval took 0.47s
+2025-09-18 11:02:57,284 - rag - INFO - Performance: query_processing took 5.10s
+2025-09-18 11:03:20,259 - rag - INFO - Operation: processing_query
+2025-09-18 11:03:20,765 - rag - INFO - Performance: context_retrieval took 0.51s
+2025-09-18 11:03:26,307 - rag - INFO - Performance: query_processing took 6.05s
+2025-09-18 11:03:49,975 - rag - INFO - Operation: processing_query
+2025-09-18 11:03:50,442 - rag - INFO - Performance: context_retrieval took 0.47s
+2025-09-18 11:03:59,900 - rag - INFO - Performance: query_processing took 9.93s
+2025-09-18 11:04:53,004 - rag - INFO - Operation: processing_query
+2025-09-18 11:04:54,782 - rag - INFO - Performance: context_retrieval took 1.78s
+2025-09-18 11:05:01,878 - rag - INFO - Performance: query_processing took 8.87s
+2025-09-18 11:05:49,003 - rag - INFO - Operation: processing_query
+2025-09-18 11:05:49,633 - rag - INFO - Performance: context_retrieval took 0.63s
+2025-09-18 11:05:53,290 - rag - INFO - Performance: query_processing took 4.29s
+2025-09-18 11:06:13,420 - rag - INFO - Operation: processing_query
+2025-09-18 11:06:13,946 - rag - INFO - Performance: context_retrieval took 0.52s
+2025-09-18 11:06:27,622 - rag - INFO - Performance: query_processing took 14.20s
+2025-09-18 11:07:14,821 - rag - INFO - Operation: processing_query
+2025-09-18 11:07:16,566 - rag - INFO - Performance: context_retrieval took 1.74s
+2025-09-18 11:07:22,990 - rag - INFO - Performance: query_processing took 8.17s
+2025-09-18 13:48:49,696 - rag - INFO - Conversation database initialized successfully
+2025-09-18 13:48:49,717 - rag - INFO - Operation: conversation_created
+2025-09-18 13:48:49,740 - rag - INFO - Operation: conversation_deleted
+2025-09-18 13:48:53,318 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 13:48:54,155 - rag - INFO - Query engine components initialized successfully
+2025-09-18 13:49:15,951 - rag - INFO - Conversation database initialized successfully
+2025-09-18 13:49:15,956 - rag - INFO - Operation: system_metrics_collected
+2025-09-18 13:49:16,200 - rag - INFO - Operation: api_request
+2025-09-18 13:49:16,201 - rag - INFO - Performance: api_request took 0.00s
+2025-09-18 13:49:16,441 - rag - INFO - Operation: api_request
+2025-09-18 13:49:16,451 - rag - INFO - Performance: api_request took 0.01s

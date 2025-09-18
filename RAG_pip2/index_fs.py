@@ -1,5 +1,7 @@
-import os, time
-from typing import List
+import os
+import time
+import hashlib
+from typing import List, Optional
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_pinecone import PineconeVectorStore
@@ -71,16 +73,27 @@ def wait_for_namespace(index, ns: str, expected_min_increase: int, timeout: floa
 # ---------- Main indexing ----------
 def index_paths(paths: List[str], namespace: str, wipe: bool = False, reindex: bool = False):
     """Index files into Pinecone under the given namespace."""
-    files = iter_files(paths)
-    if not files:
-        print("[ERR] No supported files found.")
-        return
+    try:
+        files = iter_files(paths)
+        if not files:
+            print("[ERR] No supported files found.")
+            return
 
-    # embeddings + Pinecone client
-    embed = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
-    pc = Pinecone(api_key=PINECONE_API_KEY)
-    index = pc.Index(INDEX_NAME)
-    vs = PineconeVectorStore(embedding=embed, index=index)
+        # Validate API keys
+        if not PINECONE_API_KEY:
+            raise ValueError("PINECONE_API_KEY is not set")
+        if not GOOGLE_API_KEY:
+            raise ValueError("GOOGLE_API_KEY is not set")
+
+        # embeddings + Pinecone client
+        embed = GoogleGenerativeAIEmbeddings(model="models/text-embedding-004")
+        pc = Pinecone(api_key=PINECONE_API_KEY)
+        index = pc.Index(INDEX_NAME)
+        vs = PineconeVectorStore(embedding=embed, index=index)
+        
+    except Exception as e:
+        print(f"[ERR] Failed to initialize indexing components: {e}")
+        return
 
     # Optionally clear namespace
     if wipe:
@@ -115,23 +128,36 @@ def index_paths(paths: List[str], namespace: str, wipe: bool = False, reindex: b
             except Exception as e:
                 print(f"[REINDEX WARN] {e}")
 
-        # Load + split
-        docs = load_one_local(path, USER_AGENT)
-        chunks = splitter.split_documents(docs)
-        for d in chunks:
-            d.metadata["source"] = path
-            d.metadata["doc_uid"] = doc_uid
-            d.metadata["chunk_start"] = d.metadata.get("start_index", 0)
+        try:
+            # Load + split
+            docs = load_one_local(path, USER_AGENT)
+            if not docs:
+                print(f"[WARN] No content loaded from {path}")
+                continue
+                
+            chunks = splitter.split_documents(docs)
+            if not chunks:
+                print(f"[WARN] No chunks created from {path}")
+                continue
+                
+            for d in chunks:
+                d.metadata["source"] = path
+                d.metadata["doc_uid"] = doc_uid
+                d.metadata["chunk_start"] = d.metadata.get("start_index", 0)
 
-        ids = build_chunk_ids(namespace, doc_uid, len(chunks))
+            ids = build_chunk_ids(namespace, doc_uid, len(chunks))
 
-        # Upsert chunks
-        upserted = vs.add_documents(documents=chunks, ids=ids, namespace=namespace)
-        print(f"[OK] {os.path.basename(path)} -> {len(upserted)} chunks")
+            # Upsert chunks
+            upserted = vs.add_documents(documents=chunks, ids=ids, namespace=namespace)
+            print(f"[OK] {os.path.basename(path)} -> {len(upserted)} chunks")
 
-        # Upsert sentinel
-        upsert_sentinel(index, namespace, embed, doc_uid, path, len(upserted))
-        total_new += (len(upserted) + 1)
+            # Upsert sentinel
+            upsert_sentinel(index, namespace, embed, doc_uid, path, len(upserted))
+            total_new += (len(upserted) + 1)
+            
+        except Exception as e:
+            print(f"[ERR] Failed to process {path}: {e}")
+            continue
 
     if total_new:
         wait_for_namespace(index, namespace, expected_min_increase=total_new)

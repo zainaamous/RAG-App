@@ -322,7 +322,7 @@ def serve(port: int, host: str):
     """Start the API server"""
     try:
         import uvicorn
-        from api import app
+        from api_v2 import app
         
         console.print(f"[green]🚀 Starting API server on {host}:{port}[/green]")
         console.print(f"[blue]📖 API docs: http://{host}:{port}/docs[/blue]")

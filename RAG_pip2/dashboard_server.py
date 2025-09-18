@@ -370,11 +370,8 @@ async def dashboard_delete_document(doc_id: str):
         if not indexer:
             raise HTTPException(status_code=503, detail="Dashboard not initialized")
         
-        # indexer._delete_document(doc_id)
-        indexer = EnhancedIndexer(namespace)
-        await asyncio.get_event_loop().run_in_executor(
-            None, indexer._delete_document, doc_id  # doc_id is your doc_uid
-        )
+        # Delete document using the existing indexer
+        indexer._delete_document(doc_id)
         
         return {"status": "deleted", "doc_id": doc_id}
         
