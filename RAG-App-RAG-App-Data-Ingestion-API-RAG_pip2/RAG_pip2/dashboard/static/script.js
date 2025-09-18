@@ -12,6 +12,9 @@ class RAGDashboard {
     this.retryCount = 0;
     this.maxRetries = 5;
 
+    this.currentPage = 1;
+    this.pageSize = 5;
+
     this.init();
   }
 
@@ -289,6 +292,7 @@ class RAGDashboard {
       const data = await response.json();
 
       this.documents = data;
+      this.currentPage = 1; // Reset to first page
       this.updateDocumentsDisplay(data);
     } catch (error) {
       console.error("Failed to load documents:", error);
@@ -302,7 +306,12 @@ class RAGDashboard {
 
     tableBody.innerHTML = "";
 
-    documents.forEach((doc) => {
+    // Pagination logic
+    const startIdx = (this.currentPage - 1) * this.pageSize;
+    const endIdx = startIdx + this.pageSize;
+    const paginatedDocs = documents.slice(startIdx, endIdx);
+
+    paginatedDocs.forEach((doc) => {
       const row = document.createElement("tr");
       row.innerHTML = `
                 <td>
@@ -334,6 +343,8 @@ class RAGDashboard {
             `;
       tableBody.appendChild(row);
     });
+
+    this.renderPaginationControls(documents.length);
   }
 
   async summarizeDocument(docUid) {
@@ -400,6 +411,27 @@ class RAGDashboard {
       this.showAlert(`Query failed: ${error.message}`, "error");
     } finally {
       queryLoading.style.display = "none";
+    }
+  }
+
+  renderPaginationControls(totalDocs) {
+    const paginationContainer = document.getElementById("paginationContainer");
+    if (!paginationContainer) return;
+
+    paginationContainer.innerHTML = "";
+
+    const totalPages = Math.ceil(totalDocs / this.pageSize);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i;
+      btn.className =
+        "btn btn-sm" + (i === this.currentPage ? " btn-primary" : "");
+      btn.onclick = () => {
+        this.currentPage = i;
+        this.updateDocumentsDisplay(this.documents);
+      };
+      paginationContainer.appendChild(btn);
     }
   }
 

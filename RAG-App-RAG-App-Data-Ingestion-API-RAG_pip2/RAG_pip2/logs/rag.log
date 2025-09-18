@@ -695,3 +695,94 @@
 2025-09-18 10:37:06,566 - rag - INFO - Operation: processing_query
 2025-09-18 10:37:07,044 - rag - INFO - Performance: context_retrieval took 0.48s
 2025-09-18 10:37:09,063 - rag - INFO - Performance: query_processing took 2.50s
+2025-09-18 10:46:19,256 - rag - INFO - Initializing dashboard components
+2025-09-18 10:46:19,257 - rag - INFO - Operation: initializing_indexer
+2025-09-18 10:46:19,914 - rag - INFO - Indexer components initialized successfully
+2025-09-18 10:46:19,915 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 10:46:19,926 - rag - INFO - Query engine components initialized successfully
+2025-09-18 10:46:19,927 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 10:50:59,458 - rag - INFO - Operation: processing_query
+2025-09-18 10:51:01,221 - rag - INFO - Performance: context_retrieval took 1.76s
+2025-09-18 10:51:06,975 - rag - INFO - Performance: query_processing took 7.52s
+2025-09-18 10:52:09,863 - rag - INFO - Document deleted
+2025-09-18 10:52:38,088 - rag - INFO - Operation: processing_query
+2025-09-18 10:52:39,427 - rag - INFO - Performance: context_retrieval took 1.34s
+2025-09-18 10:52:43,866 - rag - INFO - Performance: query_processing took 5.78s
+2025-09-18 10:58:12,182 - rag - INFO - Operation: indexing_document
+2025-09-18 10:58:14,319 - rag - DEBUG - Sentinel upserted
+2025-09-18 10:58:14,320 - rag - INFO - Performance: document_indexing took 2.14s
+2025-09-18 10:58:44,380 - rag - INFO - Document deleted
+2025-09-18 11:11:10,802 - rag - INFO - Initializing dashboard components
+2025-09-18 11:11:10,803 - rag - INFO - Operation: initializing_indexer
+2025-09-18 11:11:11,701 - rag - INFO - Indexer components initialized successfully
+2025-09-18 11:11:11,702 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 11:11:11,716 - rag - INFO - Query engine components initialized successfully
+2025-09-18 11:11:11,717 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 11:43:34,665 - rag - INFO - Initializing dashboard components
+2025-09-18 11:43:34,666 - rag - INFO - Operation: initializing_indexer
+2025-09-18 11:43:35,667 - rag - INFO - Indexer components initialized successfully
+2025-09-18 11:43:35,668 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 11:43:35,679 - rag - INFO - Query engine components initialized successfully
+2025-09-18 11:43:35,680 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 11:45:14,144 - rag - INFO - Operation: processing_query
+2025-09-18 11:45:15,820 - rag - INFO - Performance: context_retrieval took 1.67s
+2025-09-18 11:45:18,476 - rag - INFO - Performance: query_processing took 4.33s
+2025-09-18 11:45:36,535 - rag - INFO - Operation: processing_query
+2025-09-18 11:45:37,027 - rag - INFO - Performance: context_retrieval took 0.49s
+2025-09-18 11:45:38,974 - rag - INFO - Performance: query_processing took 2.44s
+2025-09-18 11:45:56,305 - rag - INFO - Operation: processing_query
+2025-09-18 11:45:56,794 - rag - INFO - Performance: context_retrieval took 0.49s
+2025-09-18 11:46:00,113 - rag - INFO - Performance: query_processing took 3.81s
+2025-09-18 11:46:17,918 - rag - INFO - Operation: processing_query
+2025-09-18 11:46:18,389 - rag - INFO - Performance: context_retrieval took 0.47s
+2025-09-18 11:46:21,512 - rag - INFO - Performance: query_processing took 3.59s
+2025-09-18 11:46:46,148 - rag - INFO - Operation: indexing_document
+2025-09-18 11:46:46,351 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-18 11:47:03,849 - rag - INFO - Operation: indexing_document
+2025-09-18 11:47:04,008 - rag - ERROR - Error in indexing_document: `pypdf` package not found, please install it with `pip install pypdf`
+2025-09-18 11:47:49,500 - rag - INFO - Initializing dashboard components
+2025-09-18 11:47:49,500 - rag - INFO - Operation: initializing_indexer
+2025-09-18 11:47:49,926 - rag - INFO - Indexer components initialized successfully
+2025-09-18 11:47:49,928 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 11:47:49,941 - rag - INFO - Query engine components initialized successfully
+2025-09-18 11:47:49,942 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 11:48:04,779 - rag - INFO - Operation: indexing_document
+2025-09-18 11:48:07,029 - rag - DEBUG - Sentinel upserted
+2025-09-18 11:48:07,033 - rag - INFO - Performance: document_indexing took 2.25s
+2025-09-18 11:49:55,946 - rag - INFO - Operation: indexing_document
+2025-09-18 11:49:56,144 - rag - ERROR - Error in indexing_document: No module named 'docx2txt'
+2025-09-18 11:50:26,596 - rag - INFO - Initializing dashboard components
+2025-09-18 11:50:26,596 - rag - INFO - Operation: initializing_indexer
+2025-09-18 11:50:28,308 - rag - INFO - Indexer components initialized successfully
+2025-09-18 11:50:28,308 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 11:50:28,318 - rag - INFO - Query engine components initialized successfully
+2025-09-18 11:50:28,320 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 11:50:42,415 - rag - INFO - Operation: indexing_document
+2025-09-18 11:50:42,610 - rag - ERROR - Error in indexing_document: No chunks created from C:\Users\user\AppData\Local\Temp\tmp2cf90e6b_ID.docx
+2025-09-18 11:53:07,097 - rag - INFO - Initializing dashboard components
+2025-09-18 11:53:07,098 - rag - INFO - Operation: initializing_indexer
+2025-09-18 11:53:07,546 - rag - INFO - Indexer components initialized successfully
+2025-09-18 11:53:07,546 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 11:53:07,554 - rag - INFO - Query engine components initialized successfully
+2025-09-18 11:53:07,555 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 11:53:16,301 - rag - INFO - Operation: indexing_document
+2025-09-18 11:53:18,604 - rag - DEBUG - Sentinel upserted
+2025-09-18 11:53:18,607 - rag - INFO - Performance: document_indexing took 2.31s
+2025-09-18 12:08:16,439 - rag - INFO - Initializing dashboard components
+2025-09-18 12:08:16,441 - rag - INFO - Operation: initializing_indexer
+2025-09-18 12:08:17,271 - rag - INFO - Indexer components initialized successfully
+2025-09-18 12:08:17,273 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 12:08:17,336 - rag - INFO - Query engine components initialized successfully
+2025-09-18 12:08:17,338 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 12:14:56,637 - rag - INFO - Initializing dashboard components
+2025-09-18 12:14:56,638 - rag - INFO - Operation: initializing_indexer
+2025-09-18 12:14:57,154 - rag - INFO - Indexer components initialized successfully
+2025-09-18 12:14:57,155 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 12:14:57,168 - rag - INFO - Query engine components initialized successfully
+2025-09-18 12:14:57,169 - rag - INFO - Dashboard components initialized successfully
+2025-09-18 12:24:29,053 - rag - INFO - Initializing dashboard components
+2025-09-18 12:24:29,054 - rag - INFO - Operation: initializing_indexer
+2025-09-18 12:24:30,862 - rag - INFO - Indexer components initialized successfully
+2025-09-18 12:24:30,863 - rag - INFO - Operation: initializing_query_engine
+2025-09-18 12:24:30,877 - rag - INFO - Query engine components initialized successfully
+2025-09-18 12:24:30,879 - rag - INFO - Dashboard components initialized successfully
